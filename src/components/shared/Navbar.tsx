@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Button from "../ui/Button";
+import Logo from "../ui/Logo";
 import { cn } from "@/lib/utils";
 
 export default function Navbar() {
@@ -22,14 +23,7 @@ export default function Navbar() {
       )}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-stellar-gold rounded-full flex items-center justify-center overflow-hidden">
-            <div className="w-4 h-4 bg-deep-space rounded-full animate-pulse" />
-          </div>
-          <span className="text-xl font-display font-bold text-white tracking-tighter">
-            NOVA<span className="text-stellar-gold">STELLAR</span>
-          </span>
-        </div>
+        <Logo size="md" />
 
         <div className="hidden md:flex items-center gap-8 text-sm font-medium text-white/70">
           {["Destinations", "Expeditions", "Fleet", "About"].map((item) => (
