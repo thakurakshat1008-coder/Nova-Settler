@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String
+  password      String
+  credits       Int       @default(0)
+  createdAt     DateTime  @default(now())
+  bookings      Booking[]
+  transactions  Transaction[]
+}
+
+model Destination {
+  id          String    @id @default(cuid())
+  name        String
+  description String
+  location    String    // e.g., "Andromeda Sector 7"
+  price       Int       // Price in credits
+  imageUrl    String
+  details     String
+  bookings    Booking[]
+}
+
+model Booking {
+  id            String   @id @default(cuid())
+  userId        String
+  destinationId String
+  bookingDate   DateTime @default(now())
+  travelDate    DateTime
+  status        String   // "PENDING", "CONFIRMED", "COMPLETED"
+  user          User     @relation(fields: [userId], references: [id])
+  destination   Destination @relation(fields: [destinationId], references: [id])
+}
+
+model Transaction {
+  id        String   @id @default(cuid())
+  userId    String
+  amount    Int
+  type      String   // "DEPOSIT", "WITHDRAWAL"
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
